@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js 모던 웹 스타터킷
 
-## Getting Started
+Next.js 16 App Router 기반으로 바로 서비스 개발을 시작할 수 있는 스타터킷입니다.
 
-First, run the development server:
+## 기술 스택
+
+- Next.js 16 (App Router, Turbopack, Cache Components)
+- TypeScript
+- Tailwind CSS v4
+- shadcn/ui (`base-nova` 스타일, @base-ui 기반) + lucide-react
+- next-themes (다크모드), react-hook-form + zod (폼 검증), sonner (토스트)
+- date-fns (날짜), usehooks-ts (범용 훅)
+
+## 시작하기
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # 프로덕션 빌드
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 페이지
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| 경로 | 설명 |
+|---|---|
+| `/` | 랜딩 (Hero / Features / CTA) |
+| `/examples` | 설치된 컴포넌트·훅 사용 예제 모음 |
+| `/dashboard` | 사이드바 대시보드 (통계 카드, 테이블) |
+| `/dashboard/settings` | 설정 (Tabs, 폼 검증, localStorage 환경설정, 확인 다이얼로그) |
+| `/dashboard/analytics` | 분석 (빈 상태 예시) |
+| `/login`, `/signup` | 인증 폼 UI (백엔드 연동 없음) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 디렉터리 구조
 
-## Learn More
+```
+app/
+├── (marketing)/   # 헤더 + 푸터 레이아웃
+├── (dashboard)/   # 사이드바 레이아웃
+└── (auth)/        # 중앙 정렬 카드 레이아웃
+components/
+├── ui/            # L1 shadcn 기본 컴포넌트 (CLI로 생성)
+├── common/        # L2 도메인 무관 공통 블록
+├── layout/        # L3 헤더, 푸터, 사이드바 등 페이지 골격
+├── sections/      # L4 랜딩 섹션
+├── forms/         # L4 검증 포함 폼
+└── providers/     # 전역 Provider
+lib/               # site-config, breakpoints, format, validations
+hooks/             # 라이브러리 훅 래퍼
+```
 
-To learn more about Next.js, take a look at the following resources:
+**의존 규칙**: `ui → common → layout / sections / forms → app` (상위 계층만 하위 계층을 import)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 커스터마이징
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 사이트 이름, 설명, 내비게이션: `lib/site-config.ts`
+- 테마 색상: `app/globals.css`의 CSS 변수
+- 컴포넌트 추가: `npx shadcn@latest add <name>`
+  (@base-ui 기반이므로 `asChild` 대신 `render` prop을 사용합니다)
+- 환경변수: `NEXT_PUBLIC_SITE_URL` (메타데이터 기준 URL)
 
-## Deploy on Vercel
+## 참고
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`next.config.ts`에서 `cacheComponents`가 활성화되어 있어, 요청 시점 값(`new Date()` 등)이나
+동적 데이터는 `<Suspense>` 또는 `"use cache"`로 처리해야 합니다.

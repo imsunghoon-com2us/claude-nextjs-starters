@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code / Playwright MCP 로컬 산출물
+.claude/
+.playwright-mcp/

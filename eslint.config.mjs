@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Claude Code 워크트리 사본과 Playwright MCP 산출물은 검사 대상에서 제외
+    ".claude/**",
+    ".playwright-mcp/**",
   ]),
 ]);
 
