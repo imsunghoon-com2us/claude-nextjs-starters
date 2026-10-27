@@ -41,5 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 # Claude Code / Playwright MCP 로컬 산출물
-.claude/
+.claude/*
+!.claude/commands/
 .playwright-mcp/
