@@ -26,7 +26,7 @@ export function SignupForm() {
     formState: { errors, isSubmitting },
   } = useForm<SignupValues>({ resolver: zodResolver(signupSchema) })
 
-  // 샘플: 실제 회원가입 API 연동 위치
+  // 샘플: 실제 회원가입 API 연동 위치 (연동 시 try/catch + setError("root")로 실패 처리)
   const onSubmit = async (values: SignupValues) => {
     await new Promise((r) => setTimeout(r, 600))
     toast.success(`${values.name}님, 가입을 환영합니다 (샘플)`)
@@ -53,7 +53,7 @@ export function SignupForm() {
             </Field>
             <Field data-invalid={!!errors.password}>
               <FieldLabel htmlFor="password">비밀번호</FieldLabel>
-              <Input id="password" type="password" autoComplete="new-password" aria-invalid={!!errors.password} {...register("password")} />
+              <Input id="password" type="password" autoComplete="new-password" aria-invalid={!!errors.password} {...register("password", { deps: ["confirmPassword"] })} />
               <FieldError errors={[errors.password]} />
             </Field>
             <Field data-invalid={!!errors.confirmPassword}>

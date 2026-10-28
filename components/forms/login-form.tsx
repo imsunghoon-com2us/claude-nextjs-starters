@@ -26,7 +26,7 @@ export function LoginForm() {
     formState: { errors, isSubmitting },
   } = useForm<LoginValues>({ resolver: zodResolver(loginSchema) })
 
-  // 샘플: 실제 인증 API 연동 위치
+  // 샘플: 실제 인증 API 연동 위치 (연동 시 try/catch + setError("root")로 실패 처리)
   const onSubmit = async (values: LoginValues) => {
     await new Promise((r) => setTimeout(r, 600))
     toast.success(`${values.email} 로그인 성공 (샘플)`)
