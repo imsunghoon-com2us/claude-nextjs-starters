@@ -43,4 +43,5 @@ next-env.d.ts
 # Claude Code / Playwright MCP 로컬 산출물
 .claude/*
 !.claude/commands/
+!.claude/agents/
 .playwright-mcp/
