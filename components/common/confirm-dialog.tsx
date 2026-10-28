@@ -1,6 +1,6 @@
 "use client"
 
-import type { ReactElement } from "react"
+import type { ReactElement, ReactNode } from "react"
 
 import {
   AlertDialog,
@@ -16,6 +16,7 @@ import {
 
 type ConfirmDialogProps = {
   trigger: ReactElement
+  triggerLabel: ReactNode
   title: string
   description: string
   confirmLabel?: string
@@ -25,6 +26,7 @@ type ConfirmDialogProps = {
 // 확인/취소가 필요한 위험 동작용 다이얼로그
 export function ConfirmDialog({
   trigger,
+  triggerLabel,
   title,
   description,
   confirmLabel = "확인",
@@ -32,7 +34,7 @@ export function ConfirmDialog({
 }: ConfirmDialogProps) {
   return (
     <AlertDialog>
-      <AlertDialogTrigger render={trigger} />
+      <AlertDialogTrigger render={trigger}>{triggerLabel}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>

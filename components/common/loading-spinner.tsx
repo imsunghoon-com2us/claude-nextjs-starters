@@ -6,7 +6,7 @@ export function LoadingSpinner({ className }: { className?: string }) {
   return (
     <Loader2
       aria-label="로딩 중"
-      className={cn("size-4 animate-spin text-muted-foreground", className)}
+      className={cn("size-4 animate-spin text-current", className)}
     />
   )
 }

@@ -38,7 +38,7 @@ export function ButtonsExample() {
       </ExampleGroup>
       <ExampleGroup label="로딩 / 링크">
         <Button onClick={handleClick} disabled={loading}>
-          {loading && <LoadingSpinner className="text-current" />}
+          {loading && <LoadingSpinner />}
           {loading ? "처리 중..." : "클릭해보세요"}
         </Button>
         <Button variant="outline" nativeButton={false} render={<Link href="/dashboard" />}>

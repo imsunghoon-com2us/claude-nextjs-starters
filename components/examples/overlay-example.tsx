@@ -55,6 +55,7 @@ export function OverlayExample() {
 
         <ConfirmDialog
           trigger={<Button variant="destructive" />}
+          triggerLabel="ConfirmDialog"
           title="정말 삭제할까요?"
           description="공통 ConfirmDialog 컴포넌트 예시입니다."
           confirmLabel="삭제"

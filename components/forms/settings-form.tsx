@@ -4,9 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { useLocalStorage } from "usehooks-ts"
-import { z } from "zod"
 
 import { ConfirmDialog } from "@/components/common/confirm-dialog"
+import { LoadingSpinner } from "@/components/common/loading-spinner"
 import { Button } from "@/components/ui/button"
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
@@ -17,12 +17,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-
-const profileSchema = z.object({
-  name: z.string().min(2, "이름은 2자 이상이어야 합니다."),
-  email: z.string().email("올바른 이메일을 입력해주세요."),
-})
-type ProfileValues = z.infer<typeof profileSchema>
+import { profileSchema, type ProfileValues } from "@/lib/validations/auth"
 
 export function SettingsForm() {
   const {
@@ -39,6 +34,7 @@ export function SettingsForm() {
     initializeWithValue: false,
   })
 
+  // 샘플: 실제 연동 시 try/catch + setError("root")로 실패 처리
   const onSubmit = async () => {
     await new Promise((r) => setTimeout(r, 500))
     toast.success("프로필이 저장되었습니다 (샘플)")
@@ -65,9 +61,13 @@ export function SettingsForm() {
               <FieldError errors={[errors.email]} />
             </Field>
             <div className="flex gap-2">
-              <Button type="submit" disabled={isSubmitting}>저장</Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting && <LoadingSpinner />}
+                저장
+              </Button>
               <ConfirmDialog
                 trigger={<Button type="button" variant="destructive" />}
+                triggerLabel="계정 삭제"
                 title="계정을 삭제할까요?"
                 description="이 작업은 되돌릴 수 없습니다. (샘플 동작)"
                 confirmLabel="삭제"
