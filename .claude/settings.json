@@ -1,4 +1,8 @@
 {
+  "statusLine": {
+    "type": "command",
+    "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/statusline.sh"
+  },
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -49,7 +53,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '항상 한국어로 응답. npm 대신 bun 사용.'"
+            "command": "echo '항상 한국어로 응답. 패키지 매니저는 npm 사용 (bun 사용 금지).'"
           }
         ]
       }
